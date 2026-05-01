@@ -88,7 +88,7 @@ body {
 .hero-name span:nth-child(12) { animation-delay: 1.2s, 1.2s, 3s; }
 .hero-name span:nth-child(13) { animation-delay: 1.3s, 1.3s, 3.2s; }
 
-/* 4. Navbar */
+/* 4. Navbar Responsive Fix */
 nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 .nav-scrolled { top: 10px; transform: scale(0.95); }
 .nav-container {
@@ -98,6 +98,33 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
    border-radius: 16px;
    padding: 12px 30px;
    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Menu Style */
+#mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 1rem;
+    right: 1rem;
+    background: rgba(10, 25, 47, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    gap: 15px;
+    z-index: 100;
+}
+
+#mobile-menu.active {
+    display: flex;
+}
+
+@media (min-width: 768px) {
+    #mobile-menu {
+        display: none !important;
+    }
 }
 
 .nav-link {
@@ -156,7 +183,6 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
 }
 
-/* active class যুক্ত হলে এনিমেশন হবে */
 .reveal.active, .header-reveal.active { 
     opacity: 1; 
     transform: translate(0); 
@@ -215,7 +241,7 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
     transform: scale(1);
 }
 
-/* NEW INTERACTIVE GRID BACKGROUND (OPACITY INCREASED) */
+/* NEW INTERACTIVE GRID BACKGROUND */
 #contact-grid-container {
     position: fixed;
     top: 0; left: 0;
@@ -312,56 +338,72 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 
 <div class="background-wrapper" id="particle-bg"></div>
 
+<div id="mobile-menu">
+    <a href="#home" onclick="toggleMobileMenu()" class="nav-link text-white"><i class="fas fa-home"></i> Home</a>
+    <a href="#education" onclick="toggleMobileMenu()" class="nav-link text-white"><i class="fas fa-graduation-cap"></i> About Me</a>
+    <a href="#contact" onclick="toggleMobileMenu()" class="nav-link text-white"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
 <div id="contact-page-overlay">
     <div id="contact-grid-container"></div>
     
     <nav id="contact-nav" class="fixed left-0 w-full z-[2100] px-4 md:px-16 flex justify-center py-6 transition-all duration-400">
         <div class="nav-container w-full max-w-5xl flex justify-between items-center transition-all duration-400">
             <div class="text-xl font-black text-white">Adnan <span style="color: rgb(99, 102, 241);">Hussain</span></div>
-            <div class="flex gap-8 text-sm font-semibold text-gray-400">
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-400">
                 <button onclick="closeContact()" class="nav-link hover:text-white transition"><i class="fas fa-home"></i> Home</button>
                 <button onclick="closeContact()" class="nav-link hover:text-white transition"><i class="fas fa-user"></i> About Me</button>
                 <button class="nav-link text-white"><i class="fas fa-envelope"></i> Contact</button>
             </div>
+            <button class="md:hidden text-white text-2xl" onclick="closeContact()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     </nav>
 
     <div class="relative z-[2050] max-w-4xl mx-auto px-6 pt-32 pb-10 text-center">
         <h2 class="text-5xl font-black text-white mb-4">Contact Me</h2>
-        <p class="text-gray-400 mb-12">Have a question or want to work together? Feel free to reach out!</p>
+        <p class="text-gray-400 mb-12">Have a question? Send me a message and it will go directly to my inbox!</p>
         
-        <div class="bg-[#0b1426]/90 backdrop-blur-sm border border-[#1e293b] rounded-2xl p-8 max-w-2xl mx-auto shadow-2xl">
+        <form id="contact-form" action="https://formspree.io/f/xbdwljqw" method="POST" class="bg-[#0b1426]/90 backdrop-blur-sm border border-[#1e293b] rounded-2xl p-8 max-w-2xl mx-auto shadow-2xl">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label class="contact-label">Name</label>
-                    <input type="text" placeholder="Your name" class="contact-input">
+                    <input type="text" name="name" required placeholder="Your name" class="contact-input">
                 </div>
                 <div>
                     <label class="contact-label">Email</label>
-                    <input type="email" placeholder="your.email@example.com" class="contact-input">
+                    <input type="email" name="email" required placeholder="your.email@example.com" class="contact-input">
                 </div>
             </div>
             <div class="mb-6 text-left">
                 <label class="contact-label">Subject</label>
-                <input type="text" placeholder="What's this about?" class="contact-input">
+                <input type="text" name="subject" required placeholder="What's this about?" class="contact-input">
             </div>
             <div class="text-left">
                 <label class="contact-label">Message</label>
-                <textarea rows="5" placeholder="Your message here..." class="contact-input"></textarea>
+                <textarea name="message" rows="5" required placeholder="Your message here..." class="contact-input"></textarea>
             </div>
-            <button class="send-btn">Send Message</button>
-        </div>
+            
+            <button type="submit" id="submit-btn" class="send-btn">
+                <span id="btn-text">Send Message</span>
+            </button>
+            <p id="form-status" class="mt-4 text-sm font-medium"></p>
+        </form>
     </div>
 </div>
 
 <nav id="main-nav" class="fixed left-0 w-full z-50 px-4 md:px-16 flex justify-center">
    <div class="nav-container w-full max-w-5xl flex justify-between items-center">
        <div class="text-xl font-black text-white">Adnan <span style="color: rgb(99, 102, 241);">Hussain</span></div>
-       <div class="flex gap-8 text-sm font-semibold text-gray-400">
+       <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-400">
            <a href="#home" class="nav-link hover:text-white transition"><i class="fas fa-home"></i> Home</a>
            <a href="#education" class="nav-link hover:text-white transition"><i class="fas fa-graduation-cap"></i> About Me</a>
            <a href="#contact" class="nav-link hover:text-white transition"><i class="fas fa-envelope"></i> Contact</a>
        </div>
+       <button class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">
+           <i class="fas fa-bars"></i>
+       </button>
    </div>
 </nav>
 
@@ -474,78 +516,65 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 </footer>
 
 <script>
-// ১. কন্টাক্ট পেজের গ্রিড এনিমেশন (কালার উজ্জ্বল করা হয়েছে)
+// 1. Mobile Menu Toggle
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('active');
+}
+
+// 2. Contact Page Grid Animation
 const gridContainer = document.getElementById('contact-grid-container');
-const ssColors = [
-    'rgba(255, 230, 0, 0.95)',  // Vivid Yellow
-    'rgba(0, 255, 128, 0.95)',  // Bright Green
-    'rgba(180, 100, 255, 0.95)',// Bright Purple
-    'rgba(255, 100, 200, 0.95)' // Hot Pink
-];
+const ssColors = ['rgba(255, 230, 0, 0.95)', 'rgba(0, 255, 128, 0.95)', 'rgba(180, 100, 255, 0.95)', 'rgba(255, 100, 200, 0.95)'];
 
 function createGrid() {
+    if(!gridContainer) return;
     gridContainer.innerHTML = ''; 
     const rows = Math.ceil(window.innerHeight / 40);
     const cols = Math.ceil(window.innerWidth / 40);
-    const totalBoxes = rows * cols;
-
-    for (let i = 0; i < totalBoxes; i++) {
+    for (let i = 0; i < (rows * cols); i++) {
         const box = document.createElement('div');
         box.className = 'grid-box';
-        
         box.addEventListener('mouseenter', () => {
             const randomColor = ssColors[Math.floor(Math.random() * ssColors.length)];
             box.style.background = randomColor;
             box.style.boxShadow = `0 0 25px ${randomColor}`;
             box.style.transition = '0s'; 
-            
             setTimeout(() => {
                 box.style.transition = 'background 0.6s ease'; 
                 box.style.background = 'transparent';
                 box.style.boxShadow = 'none';
             }, 600);
         });
-        
         gridContainer.appendChild(box);
     }
 }
 createGrid();
 window.addEventListener('resize', createGrid);
 
-// ২. স্ক্রল এনিমেশন (রিভার্স এনিমেশন ঠিক করা হয়েছে)
-const observerOptions = {
-    threshold: 0.1
-};
-
+// 3. Reveal Animation
+const observerOptions = { threshold: 0.1 };
 const observer = new IntersectionObserver((entries) => {
    entries.forEach(entry => {
-       if (entry.isIntersecting) {
-           // স্ক্রিনে আসলে এনিমেশন শুরু হবে
-           entry.target.classList.add('active');
-       } else {
-           // স্ক্রিনের বাইরে গেলে (উপরে বা নিচে) ক্লাস রিমুভ হবে যেন আবার এনিমেশন হয়
-           entry.target.classList.remove('active');
-       }
+       if (entry.isIntersecting) entry.target.classList.add('active');
+       else entry.target.classList.remove('active');
    });
 }, observerOptions);
-
 document.querySelectorAll('.reveal, .header-reveal').forEach((el) => observer.observe(el));
 
-// ৩. অন্যান্য ফাংশন (ওপেন/ক্লোজ/পার্টিকেল)
+// 4. Overlay Functions
 function openContact() {
     const overlay = document.getElementById('contact-page-overlay');
     overlay.style.display = 'block';
     setTimeout(() => { overlay.classList.add('active'); }, 10);
     document.body.style.overflow = 'hidden';
 }
-
 function closeContact() {
     const overlay = document.getElementById('contact-page-overlay');
     overlay.classList.remove('active');
-    setTimeout(() => { overlay.style.display = 'none'; }, 500);
-    document.body.style.overflow = 'auto';
+    setTimeout(() => { overlay.style.display = 'none'; document.body.style.overflow = 'auto'; }, 500);
 }
 
+// 5. Particle BG
 const bg = document.getElementById('particle-bg');
 for (let i = 0; i < 100; i++) {
    const particle = document.createElement('div');
@@ -559,19 +588,52 @@ for (let i = 0; i < 100; i++) {
    bg.appendChild(particle);
 }
 
+// 6. Nav Scroll Effects
 function handleNavScroll(navId, scrollValue) {
     const nav = document.getElementById(navId);
-    if (scrollValue > 50) {
-        nav.classList.add('nav-scrolled');
-        nav.style.paddingTop = '10px';
-    } else {
-        nav.classList.remove('nav-scrolled');
-        nav.style.paddingTop = '20px';
+    if (nav) {
+        if (scrollValue > 50) nav.classList.add('nav-scrolled');
+        else nav.classList.remove('nav-scrolled');
     }
 }
-
 window.onscroll = function() { handleNavScroll('main-nav', window.scrollY); };
 document.getElementById('contact-page-overlay').onscroll = function() { handleNavScroll('contact-nav', this.scrollTop); };
+
+// 7. FINAL FORM SUBMISSION LOGIC (FORM PAGE 2)
+const contactForm = document.getElementById('contact-form');
+const statusMsg = document.getElementById('form-status');
+const btnText = document.getElementById('btn-text');
+
+if (contactForm) {
+    contactForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        btnText.innerHTML = "Sending...";
+        
+        const data = new FormData(event.target);
+        
+        fetch(event.target.action, {
+            method: contactForm.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                statusMsg.innerHTML = "✅ Message sent successfully!";
+                statusMsg.style.color = "#4ade80";
+                contactForm.reset();
+                btnText.innerHTML = "Send Message";
+                setTimeout(() => { statusMsg.innerHTML = ""; }, 5000);
+            } else {
+                statusMsg.innerHTML = "❌ Oops! Something went wrong.";
+                statusMsg.style.color = "#f87171";
+                btnText.innerHTML = "Send Message";
+            }
+        }).catch(error => {
+            statusMsg.innerHTML = "❌ Connection error.";
+            statusMsg.style.color = "#f87171";
+            btnText.innerHTML = "Send Message";
+        });
+    });
+}
 </script>
 
 </body>
