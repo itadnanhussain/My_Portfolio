@@ -74,7 +74,14 @@ body {
 .hero-name span:nth-child(12) { animation-delay: 1.2s, 1.2s, 3s; }
 .hero-name span:nth-child(13) { animation-delay: 1.3s, 1.3s, 3.2s; }
 
-nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
+nav { 
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    top: 20px; 
+    position: fixed !important; /* Eita important */
+    width: 100%;
+    z-index: 1000 !important; /* Mobile-e shobar upore rakhbe */
+    pointer-events: auto !important; /* Click enable korbe */
+}
 .nav-scrolled { top: 10px; transform: scale(0.95); }
 .nav-container {
    background: rgba(255, 255, 255, 0.03);
@@ -88,7 +95,7 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 #mobile-menu {
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 80px;
     left: 1rem;
     right: 1rem;
@@ -98,9 +105,13 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
     border-radius: 12px;
     padding: 20px;
     gap: 15px;
-    z-index: 100;
+   z-index: 2000;
 }
 #mobile-menu.active { display: flex; }
+#mobile-menu a{
+    cursor:pointer;
+    -webkit-tap-highlight-color: transparent;
+}
 
 @media (min-width: 768px) { #mobile-menu { display: none !important; } }
 
@@ -404,13 +415,12 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 }
 }
 
+
 .custom-draggable-card {
     cursor: grab;
     user-select: none;
     -webkit-user-drag: none;
-}
-.custom-draggable-card:active {
-    cursor: grabbing;
+    touch-action: none;
 }
 .dragging-active {
     box-shadow: 0 40px 90px rgba(99, 102, 241, 0.45) !important;
@@ -477,4 +487,16 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 #tilt-card {
     position: absolute;
     /* baki properties jemon ache temon thakbe */
+}   
+@media(max-width:480px){
+
+.interactive-id-badge{
+    width:260px;
+    height:390px;
+}
+
+.badge-photo-slot{
+    height:200px;
+}
+
 }
