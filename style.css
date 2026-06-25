@@ -1,4 +1,3 @@
-/* 1. Global Smooth Scroll */
 html {
    scroll-behavior: smooth;
 }
@@ -11,7 +10,6 @@ body {
    position: relative;
 }
 
-/* 2. Particle Background */
 .background-wrapper {
    position: fixed;
    top: 0; left: 0; width: 100%; height: 100%;
@@ -36,7 +34,6 @@ body {
    100% { transform: translateY(-100vh) scale(0.6); opacity: 0; }
 }
 
-/* 3. SHOCK & WAVY NAME ANIMATION */
 .hero-name span {
     display: inline-block;
     opacity: 0;
@@ -64,7 +61,6 @@ body {
     85% { transform: translate(0); }
 }
 
-/* Letter Delays */
 .hero-name span:nth-child(1) { animation-delay: 0.1s, 0.1s, 1s; }
 .hero-name span:nth-child(2) { animation-delay: 0.2s, 0.2s, 1.2s; }
 .hero-name span:nth-child(3) { animation-delay: 0.3s, 0.3s, 1.4s; }
@@ -78,7 +74,6 @@ body {
 .hero-name span:nth-child(12) { animation-delay: 1.2s, 1.2s, 3s; }
 .hero-name span:nth-child(13) { animation-delay: 1.3s, 1.3s, 3.2s; }
 
-/* 4. Navbar Responsive Fix */
 nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 .nav-scrolled { top: 10px; transform: scale(0.95); }
 .nav-container {
@@ -90,7 +85,6 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Mobile Menu Style */
 #mobile-menu {
     display: none;
     flex-direction: column;
@@ -106,35 +100,18 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
     gap: 15px;
     z-index: 100;
 }
+#mobile-menu.active { display: flex; }
 
-#mobile-menu.active {
-    display: flex;
-}
+@media (min-width: 768px) { #mobile-menu { display: none !important; } }
 
-@media (min-width: 768px) {
-    #mobile-menu {
-        display: none !important;
-    }
-}
-
-.nav-link {
-   position: relative;
-   transition: color 0.3s ease;
-}
+.nav-link { position: relative; transition: color 0.3s ease; }
 .nav-link::after {
-   content: '';
-   position: absolute;
-   width: 0;
-   height: 2px;
-   bottom: -4px;
-   left: 0;
-   background-color: rgb(99, 102, 241);
-   transition: width 0.3s ease;
+   content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+   background-color: rgb(99, 102, 241); transition: width 0.3s ease;
 }
 .nav-link:hover { color: white !important; }
 .nav-link:hover::after { width: 100%; }
 
-/* 5. Buttons */
 .btn-style {
    background: rgba(255, 255, 255, 0.03);
    border: 1px solid rgba(255, 255, 255, 0.1);
@@ -154,14 +131,10 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
 }
 
-@keyframes slowSlideDown {
-   0% { transform: translateY(-10px); }
-   100% { transform: translateY(10px); }
-}
+@keyframes slowSlideDown { 0% { transform: translateY(-10px); } 100% { transform: translateY(10px); } }
 .hi-anim { animation: slowSlideDown 3s infinite alternate ease-in-out; }
 .hero-name { font-size: clamp(3.5rem, 10vw, 6rem); font-weight: 900; letter-spacing: -3px; line-height: 1.1; cursor: default; }
 
-/* REVEAL SYSTEM */
 .reveal { 
     opacity: 0; 
     transform: translateX(-50px); 
@@ -173,12 +146,22 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
 }
 
+.reveal-right {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 1s cubic-bezier(0.175, 0.885, 0.32, 1.15), transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
 .reveal.active, .header-reveal.active { 
     opacity: 1; 
     transform: translate(0); 
 }
 
-/* Education Visuals */
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0); 
+}
+
 .timeline-container { position: relative; }
 .timeline-container::before {
    content: ''; position: absolute; left: -32px; top: 10px; bottom: 10px;
@@ -212,7 +195,6 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* --- CONTACT OVERLAY PAGE --- */
 #contact-page-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -224,71 +206,26 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
 }
+#contact-page-overlay.active { display: block; opacity: 1; transform: scale(1); }
 
-#contact-page-overlay.active {
-    display: block;
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* NEW INTERACTIVE GRID BACKGROUND */
 #contact-grid-container {
     position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
+    top: 0; left: 0; width: 100vw; height: 100vh;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
     grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
-    z-index: -1;
-    pointer-events: auto;
+    z-index: -1; pointer-events: auto;
     transform: perspective(1000px) rotateX(20deg) rotateZ(-5deg) translateY(-50px) scale(1.2);
     opacity: 0.4;
 }
 
-.grid-box {
-    border: 0.1px solid rgba(255, 255, 255, 0.03);
-    transition: background 0.8s ease, box-shadow 0.8s ease;
-}
-
-.contact-label {
-    display: block;
-    color: #94a3b8;
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: 8px;
-    text-align: left;
-}
-
-.contact-input {
-    background: #111a2e;
-    border: 1px solid #1e293b;
-    border-radius: 8px;
-    padding: 12px 16px;
-    color: white;
-    width: 100%;
-    outline: none;
-    transition: all 0.3s;
-}
-
-.contact-input:focus {
-    border-color: #3b82f6;
-    background: #16223a;
-}
-
-.send-btn {
-    background: #2563eb;
-    color: white;
-    padding: 14px;
-    border-radius: 8px;
-    font-weight: 600;
-    width: 100%;
-    margin-top: 20px;
-    transition: 0.3s;
-}
-
+.grid-box { border: 0.1px solid rgba(255, 255, 255, 0.03); transition: background 0.8s ease, box-shadow 0.8s ease; }
+.contact-label { display: block; color: #94a3b8; font-size: 0.875rem; font-weight: 500; margin-bottom: 8px; text-align: left; }
+.contact-input { background: #111a2e; border: 1px solid #1e293b; border-radius: 8px; padding: 12px 16px; color: white; width: 100%; outline: none; transition: all 0.3s; }
+.contact-input:focus { border-color: #3b82f6; background: #16223a; }
+.send-btn { background: #2563eb; color: white; padding: 14px; border-radius: 8px; font-weight: 600; width: 100%; margin-top: 20px; transition: 0.3s; }
 .send-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
 
-/* --- CONTACT SECTION GLOW --- */
 .glow-bottom {
     position: absolute; bottom: -10%; left: 50%;
     transform: translateX(-50%); width: 60%; height: 100px;
@@ -304,11 +241,7 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 }
 .floating-social:hover { transform: translateY(-5px) scale(1.1); }
 
-/* --- FOOTER --- */
-.footer-container {
-    position: relative; padding-top: 100px; padding-bottom: 50px;
-    background: #060e1f; overflow: hidden;
-}
+.footer-container { position: relative; padding-top: 100px; padding-bottom: 50px; background: #060e1f; overflow: hidden; }
 .footer-grid {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-image: 
@@ -321,3 +254,227 @@ nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); top: 20px; }
 .footer-content { position: relative; z-index: 10; }
 .social-icons i { font-size: 1.5rem; color: #94a3b8; transition: all 0.3s; cursor: pointer; }
 .social-icons i:hover { color: white; transform: translateY(-3px); }
+
+.custom-cursor { color: rgb(99, 102, 241); font-weight: 900; margin-left: 3px; animation: blinkCursor 0.8s infinite; }
+@keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.card-3d-perspective {
+    perspective: 1200px;
+}
+
+/* --- UPDATE: ACADEMY TYPE AESTHETIC LANYARD SYSTEM --- */
+.lanyard-ribbon-loop {
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    width: 100px;
+    height: 195px;
+    z-index: 35;
+    pointer-events: none;
+    transform-origin: top center;
+
+    animation: lanyardEntrance 1.8s cubic-bezier(.34,1.56,.64,1) forwards;
+
+    transition: transform 0.12s cubic-bezier(.22,1,.36,1);
+    will-change: transform;
+}
+
+.ribbon-strap {
+    position: absolute;
+    top: 0;
+    width: 16px;
+    height: 175px;
+    /* Premium Oxford Blue/Navy Aesthetic Background */
+    background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+    border-radius: 3px;
+    box-shadow: -4px 6px 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* Luxury Academy Golden Embroidery lines inside the ribbon */
+.ribbon-stripe-gold {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #d97706);
+    box-shadow: 0 0 4px rgba(251, 191, 36, 0.4);
+}
+
+.left-strap {
+    left: 20px;
+    transform: rotate(16deg);
+    transform-origin: top left;
+}
+
+.right-strap {
+    right: 20px;
+    transform: rotate(-16deg);
+    transform-origin: top right;
+}
+
+.ribbon-metal-ring {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #fef08a 20%, #ca8a04 80%); /* Academic Gold Medallion base ring */
+    border: 1px solid #854d0e;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.ribbon-metal-hook {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 18px;
+    background: linear-gradient(#ca8a04, #854d0e);
+    border-radius: 2px;
+}
+
+/* Smooth fluid drop entrance */
+@keyframes lanyardEntrance {
+
+    0% {
+        transform:
+        translateX(-50%)
+        translateY(-180px)
+        scaleY(0.2);
+        opacity:0;
+    }
+
+    70% {
+        transform:
+        translateX(-50%)
+        translateY(15px)
+        scaleY(1.05);
+        opacity:1;
+    }
+
+    100% {
+        transform:
+        translateX(-50%)
+        translateY(0)
+        scaleY(1);
+    }
+}   
+
+.lanyard-dragging {
+    transition: none !important;
+}
+
+/* INTERACTIVE ID CARD STYLES */
+.interactive-id-badge {
+    position: relative;
+    width: 300px;
+    height: 440px;
+    background: linear-gradient(145deg, #0f1a30 0%, #070c17 100%);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 25px 50px rgba(0,0,0,0.5);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+
+    transform-style:preserve-3d;
+
+    transform:translate(0px,0px) rotate(0deg);
+
+    animation:badgeDropEntrance 1.8s cubic-bezier(0.19,1,0.22,1) forwards;
+
+    transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+
+    z-index:40;
+}
+
+@keyframes badgeDropEntrance {
+    0% { transform: translate(0px, -150px) scale(0.8); opacity: 0; }
+    100% { 
+    transform:translate(0px,0px);
+    opacity:1;
+}
+}
+
+.custom-draggable-card {
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+.custom-draggable-card:active {
+    cursor: grabbing;
+}
+.dragging-active {
+    box-shadow: 0 40px 90px rgba(99, 102, 241, 0.45) !important;
+    border-color: rgba(99, 102, 241, 0.6) !important;
+}
+
+.interactive-id-badge:hover {
+    box-shadow: 0 45px 85px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+.badge-card-inner {
+    width: 100%; height: calc(100% - 10px);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.005);
+    border-radius: 14px; padding: 12px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transform: translateZ(30px); 
+    pointer-events: none; 
+}
+
+.card-reflection-glare {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 20px;
+    z-index: 10;
+    pointer-events: none;
+    transition: background 0.1s ease-out;
+}
+
+.badge-holder-clip {
+    position: absolute;
+    top: -14px; left: 50%; transform: translateX(-50%) translateZ(40px);
+    background: #1a2436; border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 14px; border-radius: 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 5;
+}
+.clip-hole { width: 20px; height: 6px; background: #060e1f; border-radius: 3px; }
+.clip-brand { font-size: 7px; font-weight: 900; color: #64748b; letter-spacing: 1.5px; }
+
+.badge-photo-slot { position: relative; width: 100%; height: 240px; background: #0b1324; border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 10px; overflow: hidden; }
+.badge-main-img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.6s ease; -webkit-user-drag: none; }
+.interactive-id-badge:hover .badge-main-img { transform: scale(1.03); }
+.badge-photo-glow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 60%, rgba(6, 14, 31, 0.8) 100%); z-index: 2; pointer-events: none; }
+
+.badge-card-info { margin-top: 14px; text-align: center; }
+.badge-name-text { font-size: 1.1rem; font-weight: 900; letter-spacing: 0.5px; color: #ffffff; }
+.badge-role-text { font-size: 0.7rem; font-weight: 700; color: rgb(99, 102, 241); letter-spacing: 1.5px; margin-top: 1px; }
+
+.badge-barcode-layout { display: flex; justify-content: center; gap: 2.5px; height: 16px; margin-top: 14px; opacity: 0.25; }
+.badge-barcode-layout span { width: 2px; height: 100%; background: #fff; display: inline-block; }
+.badge-barcode-layout span:nth-child(3n) { width: 3.5px; }
+.badge-barcode-layout span:nth-child(4n) { width: 1px; }
+
+.badge-star { position: absolute; color: #fbbf24; font-size: 22px; opacity: 0.6; pointer-events: none; animation: badgeStarFloat 3.5s infinite ease-in-out; transform: translateZ(50px); }
+.badge-star-1 { top: 35px; right: -22px; animation-delay: 0.3s; }
+.badge-star-2 { bottom: 70px; left: -25px; animation-delay: 1s; }
+
+@keyframes badgeStarFloat {
+    0%, 100% { transform: translateY(0) scale(1) rotate(0deg) translateZ(50px); opacity: 0.4; }
+    50% { transform: translateY(-12px) scale(1.15) rotate(20deg) translateZ(50px); opacity: 0.9; filter: drop-shadow(0 0 6px #fbbf24); }
+}
+#tilt-card {
+    position: absolute;
+    /* baki properties jemon ache temon thakbe */
+}
